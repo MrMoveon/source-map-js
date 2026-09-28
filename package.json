@@ -1,8 +1,8 @@
 {
-  "name": "@afeisite/source-map-js",
-  "description": "Generates and consumes source maps",
+  "name": "@afeisite/source-map-js-clone",
+  "description": "Generates and consumes source maps (fork of source-map-js with the CVE-2026-93749 denial of service fixed)",
   "version": "1.2.2",
-  "homepage": "https://github.com/7rulnik/source-map-js",
+  "homepage": "https://github.com/MrMoveon/source-map-js",
   "author": "Valentin 7rulnik Semirulnik <v7rulnik@gmail.com>",
   "contributors": [
     "Nick Fitzgerald <nfitzgerald@mozilla.com>",
@@ -43,7 +43,18 @@
     "Gary Ye <garysye@gmail.com>",
     "Nicolas Lalevée <nicolas.lalevee@hibnet.org>"
   ],
-  "repository": "7rulnik/source-map-js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MrMoveon/source-map-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MrMoveon/source-map-js/issues"
+  },
+  "keywords": [
+    "source-map",
+    "sourcemap",
+    "source map"
+  ],
   "main": "./source-map.js",
   "files": [
     "source-map.js",
@@ -54,6 +65,10 @@
     "node": ">=22.0.0"
   },
   "license": "BSD-3-Clause",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
+  },
   "scripts": {
     "test": "node --test 'test/**/test-*.js'",
     "test:public": "node --test 'test/public/test-*.js'",
@@ -75,7 +90,8 @@
     "doctoc": "^0.15.0",
     "source-map": "0.6.1",
     "source-map-js-latest": "npm:source-map-js@latest",
-    "source-map-wasm": "npm:source-map@0.8.0-beta.0"
+    "source-map-wasm": "npm:source-map@0.8.0-beta.0",
+    "webpack": "^1.12.0"
   },
   "clean-publish": {
     "cleanDocs": true
