@@ -1,12 +1,5 @@
 # Change Log
 
-## 1.2.2
-
-Security fix for [CVE-2026-93749](https://nvd.nist.gov/vuln/detail/CVE-2026-93749) — event-loop denial of service in `SourceNode` via an unvalidated per-section `offset.line` in indexed source maps.
-
-* Validate indexed source map section offsets: `sections[].offset.line` and `sections[].offset.column` must now be bounded non-negative integers. `Infinity`/`NaN` (a JSON `1e999` parses to `Infinity`), fractions, negatives, strings and values outside the signed 32-bit range throw a `TypeError` instead of being used as-is.
-* Bound the line-padding loop in `SourceNode.fromStringWithSourceMap` by the number of lines that actually exist in the generated code, so a mapping claiming a huge generated line can no longer block the event loop for an attacker-chosen duration.
-
 ## 1.2.1
 
 * Fix TS2306 “not a module” errors in type definitions ([#16](https://github.com/7rulnik/source-map-js/pull/16)) [@andersk](https://github.com/andersk)

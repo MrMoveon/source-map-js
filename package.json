@@ -1,7 +1,7 @@
 {
   "name": "@afeisite/source-map-js-clone",
   "description": "Generates and consumes source maps (fork of source-map-js with the CVE-2026-93749 denial of service fixed)",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "homepage": "https://github.com/MrMoveon/source-map-js",
   "author": "Valentin 7rulnik Semirulnik <v7rulnik@gmail.com>",
   "contributors": [

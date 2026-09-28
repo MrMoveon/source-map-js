@@ -39,7 +39,7 @@ If you are filing an issue for a bug or other misbehavior, please provide:
 ## Getting Started
 
 ```
-$ git clone https://github.com/MrMoveon/source-map-js.git
+$ git clone https://github.com/7rulnik/source-map-js.git
 $ cd source-map-js/
 $ yarn install
 ```

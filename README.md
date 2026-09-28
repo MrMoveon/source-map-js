@@ -1,16 +1,6 @@
 # Source Map JS
 
-[![NPM version](https://img.shields.io/npm/v/@afeisite/source-map-js-clone.svg)](https://www.npmjs.com/package/@afeisite/source-map-js-clone)
-[![npm downloads](https://img.shields.io/npm/dm/@afeisite/source-map-js-clone.svg)](https://www.npmjs.com/package/@afeisite/source-map-js-clone)
-
-> **This is a fork.** It is maintained at
-> [MrMoveon/source-map-js](https://github.com/MrMoveon/source-map-js) and published to npm as
-> [`@afeisite/source-map-js-clone`](https://www.npmjs.com/package/@afeisite/source-map-js-clone).
-> It is based on `source-map-js@1.2.1` with the fix for
-> [CVE-2026-93749](https://nvd.nist.gov/vuln/detail/CVE-2026-93749): indexed source map section
-> offsets (`sections[].offset.line` / `.column`) are validated, and `SourceNode`'s line-padding
-> loop can no longer be driven past the end of the generated code. Everything below documents the
-> shared API.
+[![NPM](https://nodei.co/npm/source-map-js.png?downloads=true&downloadRank=true)](https://www.npmjs.com/package/source-map-js)
 
 Difference between original [source-map](https://github.com/mozilla/source-map):
 
@@ -37,7 +27,7 @@ This is a library to generate and consume the source map format
 
 ## Use with Node
 
-    $ npm install @afeisite/source-map-js-clone
+    $ npm install source-map-js
 
 <!-- ## Use on the Web
 
