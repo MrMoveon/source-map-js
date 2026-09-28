@@ -919,6 +919,39 @@ test('test indexed source map errors when sections are out of order by line', ()
   }, Error);
 });
 
+test('test indexed source map errors on invalid section offsets', () => {
+  // Regression test for CVE-2026-93749: section offsets are attacker
+  // controlled and must be bounded non-negative integers. An unvalidated
+  // `offset.line` was propagated into SourceNode's line-padding loop, where a
+  // huge value blocked the event loop for an arbitrary amount of time.
+  var invalidOffsets = [
+    { line: -1, column: 0 },
+    { line: 0, column: -1 },
+    { line: 1.5, column: 0 },
+    { line: 0, column: 1.5 },
+    { line: Infinity, column: 0 },
+    { line: 0, column: Infinity },
+    { line: NaN, column: 0 },
+    { line: '3', column: 0 },
+    { line: 0x7fffffff, column: 0 }
+  ];
+
+  invalidOffsets.forEach(function (offset) {
+    var map = JSON.parse(JSON.stringify(util.indexedTestMap));
+    map.sections[0].offset = offset;
+    assert.throws(function () {
+      new SourceMapConsumer(map);
+    }, TypeError, 'expected offset ' + JSON.stringify(offset) + ' to be rejected');
+  });
+
+  // "line":1e999 parses to Infinity, so a serialized map is covered too.
+  var serialized = JSON.stringify(util.indexedTestMap)
+    .replace('"line":0', '"line":1e999');
+  assert.throws(function () {
+    new SourceMapConsumer(serialized);
+  }, TypeError);
+});
+
 test('test github issue #64', () => {
   var map = new SourceMapConsumer({
     "version": 3,

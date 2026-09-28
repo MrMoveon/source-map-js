@@ -621,3 +621,34 @@ test('test from issue 258', () => {
     new SourceMapConsumer(reactMap)
   ));
 });
+
+test('test .fromStringWithSourceMap() with an out-of-range indexed offset', () => {
+  // Regression test for CVE-2026-93749: an indexed map can claim a generated
+  // line far past the end of the generated code. The line-padding loop must
+  // stop at the real line count instead of iterating once per claimed line,
+  // which used to block the event loop for as long as the map asked for.
+  var testCode = 'var a = 1;\nvar b = 2;\n';
+  var indexedMap = {
+    version: 3,
+    file: 'min.js',
+    sections: [{
+      offset: { line: 0x7ffffffe, column: 0 },
+      map: {
+        version: 3,
+        sources: ['a.js'],
+        names: [],
+        mappings: 'AAAA',
+        sourcesContent: ['var a = 1;']
+      }
+    }]
+  };
+
+  var node = SourceNode.fromStringWithSourceMap(
+    testCode,
+    new SourceMapConsumer(indexedMap)
+  );
+
+  assert.equal(node.toString(), testCode);
+  assert.ok(node.children.length < 10,
+            'expected the padding loop to stop at the last generated line');
+});
